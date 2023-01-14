@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #Glowny {
+            justify-content: center;
+            display: flex;
+            margin-top: 100px;
+        }
+
+        #Glowny-wewnetrzny {
+            width: 560px;
+            height: 400px;
+            background-color: rgba(0, 140, 233, 0.287);
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            border-radius: 5px;
+            color: white;
+            font-family: monospace;
+            font-size: 20px;
+            text-shadow: 0px 1px black;
+
+        }
+
+        #Glowny-wewnetrzny-2 {
+            top: 20px;
+        }
+
+        body {
+            background-image: url('lufthansa.jfif');
+        }
+
+        button {
+            background-color: rgba(0, 77, 128, 90%);
+            border: 0px;
+            border-radius: 10px;
+            height: 40px;
+            width: 100px;
+            color: white;
+        }
+
+        #odstep {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #win{
+            color: white;
+            
+            font-size: 20px;
+            font-family: monospace;
+        }
+        #lose{
+            color: white; 
+            font-size: 20px;
+            font-family: monospace;
+            
+            
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="Glowny">
+        <div id="Glowny-wewnetrzny">
+            <div id="Glowny-wewnetrzny-2">
+                <h1>Quiz o samolotach</h1>
+                <b></b>
+                <p id="question">Pytanie</p>
+                <div>
+                    <p id="szanse"></p>
+                </div>
+                <div class="container">
+                    <div id="odstep"><button id="optionA" onclick="CheckAnswer(0)">A</button></div>
+                    <div id="odstep"><button id="optionB" onclick="CheckAnswer(1)">B</button></div>
+                    <div id="odstep"><button id="optionC" onclick="CheckAnswer(2)">C</button></div>
+                    <div id="odstep"><button id="optionD" onclick="CheckAnswer(3)">D</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <center>
+    <div id="win">
+        <h1>Świetnie się spisałeś!</h1>
+        <img src="git2.png">
+    </div>
+    <div id="lose">
+        <h1>Trening czyni mistrza</h1>
+        <img src="unlucly.png">
+    </div>
+</center>
+
+
+    <script>
+        const questions = [
+            "Co doprowadziło do upadku Pan Am?",
+            "Który samolot jest największym na świecie?",
+            "Kto wylądował na rzece Hudson ",
+            "Jak nazywa się najlepiej sprzedający się samolot?",
+            "Która linia lotnicza posiada największą flotę?",
+            "Na jaką wysokość przeciętnie wznoszą się samoloty pasażerskie",
+            "Jakie lotnisko jest największe na świecie",
+
+        ];
+        const answers = [
+            [" Kaczyński", " An-255", " Kpt.Mariusz", "Boeing 757", "DHL", "4km", "Dubai",],
+            [" Zamach na Lockerbie", " A380", " Kpt.George Floyd", "Boeing 737", "Amercian Airlines", "30km", "Hong Kong",],
+            [" Barack Obama", " Boeing 747", " Kpt.Sullenberg", "Airbus A380", "Qantas", "7km", "Frankfurt",],
+            [" Euklides", " Boeing 777", " Kpt.Jan Glun", "Boeing C-17", "Delta", "10-12km", "Balice",]
+
+        ];
+        const correctAnswers = [1, 0, 2, 1, 3, 3, 0];
+        let szanse = 3;
+        let currentQuestion = 0;
+
+        function UpdateQuestion() {
+            document.getElementById("question").innerHTML = questions[currentQuestion];
+            document.getElementById("szanse").innerHTML = `Twoje szanse: ${szanse}`;
+            document.getElementById("optionA").innerHTML = answers[0][currentQuestion];
+            document.getElementById("optionB").innerHTML = answers[1][currentQuestion];
+            document.getElementById("optionC").innerHTML = answers[2][currentQuestion];
+            document.getElementById("optionD").innerHTML = answers[3][currentQuestion];
+        }
+
+        function CheckAnswer(x) {
+            const isCorrect = x == correctAnswers[currentQuestion];
+            if (isCorrect || szanse > 1) {
+                if (currentQuestion < questions.length - 1) {
+                    currentQuestion++;
+                    if (!isCorrect) { szanse--; }
+                    UpdateQuestion();
+                }
+                else {
+                    document.getElementById("Glowny").style.display = 'none';
+                    document.getElementById("win").style.display = 'block';
+                }
+            }
+            else {
+                document.getElementById("Glowny").style.display = 'none';
+                document.getElementById("lose").style.display = 'block';
+            }
+        }
+        document.getElementById("lose").style.display = 'none';
+        document.getElementById("win").style.display = 'none';
+        UpdateQuestion();
+
+
+    </script>
+
+</html>
